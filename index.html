@@ -4,12 +4,18 @@
 <button id="delay-test-noti">5秒後にデスクトップ通知するよ</button>
 
 <script>
-Notification.requestPermission();
-
 var Delay = 5 * 1000; // msec
 
 var notify = function() {
-  new Notification('通知テストですよ', {body: 'てすてす'});
+  console.log('通知します')
+
+  Notification.requestPermission(function(status) {
+    console.log('Status: %s', status);
+    if (status !== 'granted') return;
+
+    new Notification('通知テストですよ', {body: 'てすてす'});
+    console.log('通知しました')
+  });
 };
 
 document.querySelector('#test-noti')
@@ -18,5 +24,6 @@ document.querySelector('#test-noti')
 document.querySelector('#delay-test-noti')
   .addEventListener('click', function() {
     setTimeout(notify, Delay);
+    console.log('%d 秒後に通知します', Delay);
   });
 </script>
