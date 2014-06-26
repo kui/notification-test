@@ -6,24 +6,30 @@
 <script>
 var Delay = 5 * 1000; // msec
 
-var notify = function() {
+function main() {
+  Notification.requestPermission();
+
+  document.querySelector('#test-noti')
+    .addEventListener('click', notify);
+
+  document.querySelector('#delay-test-noti')
+    .addEventListener('click', function() {
+      setTimeout(notify, Delay);
+      console.log('%d 秒後に通知します', Delay);
+    });
+}
+
+function notify() {
   console.log('通知します')
 
-  Notification.requestPermission(function(status) {
-    console.log('Status: %s', status);
-    if (status !== 'granted') return;
-
+  if (Notification.permission === 'granted') {
     new Notification('通知テストですよ', {body: 'てすてす'});
-    console.log('通知しました')
-  });
+  } else {
+    console.error('通知が許可されていません');
+  }
+
+  console.log('通知しました')
 };
 
-document.querySelector('#test-noti')
-  .addEventListener('click', notify);
-
-document.querySelector('#delay-test-noti')
-  .addEventListener('click', function() {
-    setTimeout(notify, Delay);
-    console.log('%d 秒後に通知します', Delay);
-  });
+main();
 </script>
