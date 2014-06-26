@@ -1,31 +1,22 @@
-<link href="//flagrate.org/flagrate.min.css" rel="stylesheet">
-<script src="//flagrate.org/flagrate.min.js"></script>
-
-<p><a href="https://flagrate.org/">flagrate</a> 使ったデスクトップ通知デモンストレーション。ブラウザの対応状況は同ページを確認してください。</p>
+<p>デスクトップ通知デモンストレーション。</p>
 
 <button id="test-noti">デスクトップ通知するよ</button>
-<button id="delay-test-noti">2秒後にデスクトップ通知するよ</button>
+<button id="delay-test-noti">5秒後にデスクトップ通知するよ</button>
 
 <script>
-var notifier = flagrate.createNotify({
-  title: 'テスト通知'
-});
+Notification.requestPermission();
 
-var testButton = document.querySelector('#test-noti');
-if (testButton) {
-  testButton.addEventListener('click', function(){
-    notifier.create({text: 'てすてす'});
-  });
-}
+var Delay = 5 * 1000; // msec
 
-var delayTestButton = document.querySelector('#delay-test-noti');
-if (delayTestButton) {
-  delayTestButton.addEventListener('click', function(){
-    var delay = 2*1000;
-    setTimeout(function() {
-      notifier.create({text: 'てててすてす'});
-    }, delay);
-    console.log('%d ミリ秒後にデスクトップ通知します', delay);
+var notify = function() {
+  new Notification('通知テストですよ', {body: 'てすてす'});
+};
+
+document.querySelector('#test-noti')
+  .addEventListener('click', notify);
+
+document.querySelector('#delay-test-noti')
+  .addEventListener('click', function() {
+    setTimeout(notify, Delay);
   });
-}
 </script>
