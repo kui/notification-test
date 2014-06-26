@@ -24,12 +24,11 @@ function notify() {
 
   if (Notification.permission === 'granted') {
     new Notification('通知テストですよ', {body: 'てすてす'});
+    console.log('通知しました')
   } else {
-    console.error('通知が許可されていません');
+    console.error('通知が許可されていません (permission: %s)', Notification.permission);
   }
-
-  console.log('通知しました')
 };
 
-main();
+document.addEventListener('DOMContentLoaded', main);
 </script>
