@@ -20,7 +20,7 @@ if (testButton) {
 
 var delayTestButton = document.querySelector('#delay-test-noti');
 if (delayTestButton) {
-  testButton.addEventListener('click', function(){
+  delayTestButton.addEventListener('click', function(){
     var delay = 2*1000;
     setTimeout(function() {
       notifier.create({text: 'てててすてす'});
